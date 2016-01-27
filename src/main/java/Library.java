@@ -37,7 +37,6 @@ public class Library {
     private int offset = 0;
     TelegramBot bot;
     private List<Content> contents;
-    private String pwd = "";
 
     // commend
     private static final String SEARCH_TORRENT = "Search Torrent";
@@ -48,10 +47,11 @@ public class Library {
         if (args.length > 0 && !"".equals(args[0])) {
             token = args[0];
         }
-        if (args.length > 1 && !"".equals(args[1])) {
-            token = args[1];
-        }
 
+        if ("".equals(token)) {
+            System.out.printf("need token");
+            return ;
+        }
         bot = TelegramBotAdapter.build(token);
     }
 
@@ -200,8 +200,7 @@ public class Library {
                 System.out.println(downUrl);
                 return;
             }
-            //String command = "transmission-remote -a " + downUrl;
-            String command = "echo download " + downUrl;
+            String command = "transmission-remote -a " + downUrl;
             runShell(command);
 
 
