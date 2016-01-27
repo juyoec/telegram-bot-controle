@@ -77,7 +77,7 @@ public class Library {
                     for (Update update : updates) {
                         offset = update.updateId() + 1;
                         Message message = update.message();
-                        String fromUsername = message.from().username();ª
+                        String fromUsername = message.from().username();
                         if (!username.equals(fromUsername)) {
                             return;
                         }
