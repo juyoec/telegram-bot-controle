@@ -34,7 +34,7 @@ public class Library {
     private BotMode mode = BotMode.NONE;
     private long chatId=0;
     private String token = "";
-    private String username = "";
+    private int userId = 0;
     private int offset = 0;
     TelegramBot bot;
     private List<Content> contents;
@@ -48,16 +48,9 @@ public class Library {
         if (args.length > 0 && !"".equals(args[0])) {
             token = args[0];
         }
-        if (args.length > 1 && !"".equals(args[1])) {
-            username = args[1];
-        }
 
         if ("".equals(token)) {
-            System.out.printf("need token");
-            return ;
-        }
-        if ("".equals(username)) {
-            System.out.printf("need username");
+            System.out.println("need token");
             return ;
         }
         bot = TelegramBotAdapter.build(token);
@@ -77,8 +70,12 @@ public class Library {
                     for (Update update : updates) {
                         offset = update.updateId() + 1;
                         Message message = update.message();
-                        String fromUsername = message.from().username();
-                        if (!username.equals(fromUsername)) {
+                        int id = message.from().id();
+                        if (userId == 0) {
+                            userId = id;
+                        }
+                        if (userId != id) {
+                            System.out.println("another user!!!");
                             return;
                         }
 
